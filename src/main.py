@@ -17,4 +17,10 @@ croppedTrainerIdImg = resizeImg[footerTopY : resizeImgHeight, 0 : OUTPUT_IMAGE_W
 cv2.imwrite("./output/cropped_pkmn_party.jpeg", croppedPkmnPartyImg)
 cv2.imwrite("./output/cropped_trainer_id_.jpeg", croppedTrainerIdImg)
 
+# グレースケール変換
+croppedPkmnPartyGrayImg = cv2.cvtColor(croppedPkmnPartyImg, cv2.COLOR_BGR2GRAY)
+cv2.namedWindow("croppedPkmnPartyGrayImg")
+cv2.imshow("croppedPkmnPartyGrayImg", croppedPkmnPartyGrayImg)
 
+cv2.waitKey(0)
+cv2.destroyAllWindows()

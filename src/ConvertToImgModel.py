@@ -1,6 +1,7 @@
 import cv2
 import sys
 import glob
+import numpy
 
 OUTPUT_IMAGE_WIDTH = 480
 THRESHOLD_CONTOUR_AREA = 500
@@ -34,6 +35,7 @@ if __name__ == "__main__":
     if len(imgModelPathList) == 0:
         sys.exit()
 
+    croppedPkmnPartyImgs = []
     for i, imgPath in enumerate(imgModelPathList):
         pkmnImg = cv2.imread(imgPath)
         resizeImg = resizeImageKeepAspectRatio(width = OUTPUT_IMAGE_WIDTH, img = pkmnImg)
@@ -43,5 +45,5 @@ if __name__ == "__main__":
         # img[top : bottom, left : right]
         resizeImgHeight = resizeImg.shape[0]
         footerTopY = int(resizeImgHeight * 4 / 5)
-        croppedPkmnPartyImg = resizeImg[0 : footerTopY, 0 : OUTPUT_IMAGE_WIDTH]
-        cv2.imwrite("./output/image_model/cropped_pkmn_party{index}.jpeg".format(index = i + 1), croppedPkmnPartyImg)
+        croppedPkmnPartyImgs.append(resizeImg[0 : footerTopY, 0 : OUTPUT_IMAGE_WIDTH])
+    numpy.save("./output/model/pkmn_party_imgs_model.npy", croppedPkmnPartyImgs)
